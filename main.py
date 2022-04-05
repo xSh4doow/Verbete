@@ -2,6 +2,7 @@ from random import randint
 from verbetes import Verbetes as V
 from termcolor import colored
 from time import sleep
+import os
 
 
 def selecionar_palavra_a():
@@ -19,6 +20,7 @@ def significado():
 
 
 def config():
+    os.system('clear')
     global palavra
     global t
     global tentativa
@@ -37,20 +39,23 @@ if __name__ == "__main__":
     config()
 
 while tentativa < 6:
-    guess = input("").lower()
-    t += 1
-    tentativa += 1
+    guess = input("\n").lower()
 
-    for i in range(min(len(guess), 10)):
-        try:
-            if guess[i] == palavra[i]:
-                print(colored(guess[i], 'green'), end="")
-            elif guess[i] in palavra:
-                print(colored(guess[i], 'yellow'), end="")
-            else:
-                print(colored(guess[i], 'red'), end="")
-        except IndexError:
-            print("\nVocê colocou letra a mais! Não é essa palavra!")
+    if len(guess) > len(palavra):
+        print(colored("Você está pondo letras a mais!", 'yellow'),end="")
+    else:
+        t += 1
+        tentativa += 1
+        for i in range(min(len(guess), 10)):
+            try:
+                if guess[i] == palavra[i]:
+                    print(colored(guess[i], 'green'), end="")
+                elif guess[i] in palavra:
+                    print(colored(guess[i], 'yellow'), end="")
+                else:
+                    print(colored(guess[i], 'red'), end="")
+            except IndexError:
+                continue
 
 
     if guess == palavra:
@@ -63,16 +68,8 @@ while tentativa < 6:
         config()
 
     elif tentativa >= 6:
-        print(colored("\nPuts, não foi dessa vez!"))
-        sleep(.5)
+        PT = palavra.title()
+        print(colored("\nPuts, não foi dessa vez! A palavra era: ", 'red'))
+        print(colored(f"{PT}!", 'blue'))
+        sleep(1.5)
         config()
-
-
-
-
-
-
-
-
-
-

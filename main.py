@@ -2,15 +2,16 @@ from random import randint
 from verbetes import Verbetes as V
 from termcolor import colored
 from time import sleep
-import os
+from os import system, name
 
 
 def selecionar_palavra_a():
-    n = randint(0, 8)
+    n = randint(0, 52)
     global index
     index = (2 * n)
-    palavraa = V[index].lower()
-    return palavraa
+    palavra_mai = V[index]
+    palavra_min = palavra_mai.lower()
+    return palavra_min
 
 
 def significado():
@@ -19,8 +20,15 @@ def significado():
     return verbete
 
 
+def clear():
+    r = 0
+    while r != 30:
+        print("\033")
+        r = r+1
+
+
 def config():
-    os.system('clear')
+    clear()
     global palavra
     global t
     global tentativa
